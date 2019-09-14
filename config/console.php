@@ -5,6 +5,10 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerMap' => [
         'rbac' => 'modules\user\install\console\RbacController',
+        'migrate' => [
+            'class' => 'yii\console\controllers\MigrateController',
+            'migrationPath' => '@modules/nad/install/migrations'
+        ],
     ],
     'components' => [
         'log' => [
@@ -24,10 +28,10 @@ return [
     'aliases' => [
         '@config' => '@app/config',
         '@themes' => '@app/themes',
-        '@modules' => '@app/modules'
+        '@modules' => '@app/modules',
+        '@nad' => '@app/modules/nad'
     ],
     'params' => [
         'adminEmail' => 'admin@example.com',
     ]
 ];
-

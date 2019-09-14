@@ -7,14 +7,16 @@ use extensions\file\widgets\singleupload\SingleImageUpload;
 ?>
 <?php Panel::begin([
     'title' => ($model->isNewRecord) ? 'افزودن عکس جدید' : 'ویرایش عکس',
+    'showCloseButton' => true
 ]) ?>
     <div class="gallery-form">
-        <?php
-        $form = ActiveForm::begin([
+        <?php $form = ActiveForm::begin([
             'enableClientValidation' => true,
-            'options' => ['enctype' => 'multipart/form-data', 'class'=>'gallery-image']
-        ]);
-        ?>
+            'options' => [
+                'enctype' => 'multipart/form-data',
+                'class' => 'sliding-form'
+            ]
+        ]) ?>
         <div class="row">
             <div class="col-md-6">
                 <?= Html::activeHiddenInput($model, 'galleryId') ?>

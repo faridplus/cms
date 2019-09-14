@@ -5,10 +5,12 @@ return [
     ],
     'aliases' => [
         '@themes' => '@app/themes',
-        '@theme' => '@themes/admin360',
+        '@theme' => '@themes/admin360'
     ],
     'controllerMap' => [
-        'gallery' => 'extensions\gallery\controllers\GalleryController'
+        'gallery' => 'extensions\gallery\controllers\GalleryController',
+        'tag' => 'extensions\tag\controllers\TagController',
+        'notif' => 'extensions\notification\controllers\NotifController'
     ],
     'components' => [
         'view' => [
@@ -36,7 +38,6 @@ return [
     'modules' => [
         'page' => 'modules\page\backend\Module',
         'post' => 'modules\post\backend\Module',
-        'slider' => 'modules\slider\Module',
         'user' => 'modules\user\backend\Module',
         'setting' => 'modules\setting\Module'
     ],
