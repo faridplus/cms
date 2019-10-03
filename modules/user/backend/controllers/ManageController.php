@@ -4,6 +4,7 @@ namespace modules\user\backend\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 use core\controllers\AdminController;
 use modules\user\backend\models\User;
 use modules\user\backend\models\UserSearch;
@@ -80,5 +81,10 @@ class ManageController extends AdminController
                 )
             ]);
         }
+    }
+
+    public function actionDelete($id)
+    {
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

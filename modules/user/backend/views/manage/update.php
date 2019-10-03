@@ -17,7 +17,6 @@ $this->params['breadcrumbs'][] = 'ویرایش';
                 'label' => 'تغییر رمز عبور',
                 'url' => ['change-password', 'id' => $model->id]
             ],
-            'delete' => ['label' => 'حذف'],
             'create' => ['label' => 'کاربر جدید'],
             'index' => ['label' => 'کاربران'],
         ],
