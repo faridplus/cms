@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                     'class' => 'core\grid\ActionColumn',
-                    'template' => '{view} {update} {delete} {assign}
+                    'template' => '{view} {update} {assign}
                         {change-password}',
                     'buttons' => [
                         'assign' => function ($url, $model, $key) {
