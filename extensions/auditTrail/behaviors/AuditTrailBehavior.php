@@ -275,7 +275,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
     public function getLogsGroupedByUpdateTime($includeFields = [], $excludeFields = [], $onlyChangedFields = false, $sortType = 'DESC')
     {
         $logsRaw = $this->owner->getLogsRaw($includeFields, $excludeFields, $onlyChangedFields, $sortType);
-        $result = ArrayHelper::map($logsRaw, 'fieldName', 'fieldNewValue', 'updatedAt');
+        $result = ArrayHelper::map($logsRaw, 'fieldName', 'fieldOldValue', 'updatedAt');
 
         return $result;
     }
