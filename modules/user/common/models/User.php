@@ -4,6 +4,7 @@ namespace modules\user\common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use nad\office\modules\expert\models\Expert;
 
 class User extends ActiveRecord
 {
@@ -82,5 +83,10 @@ class User extends ActiveRecord
     public static function findByEmail($email)
     {
         return static::findOne(['email' => $email]);
+    }
+
+    public function getExpert()
+    {
+        return $this->hasOne(Expert::class, ['userId' => 'id']);
     }
 }

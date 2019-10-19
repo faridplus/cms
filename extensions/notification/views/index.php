@@ -55,8 +55,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'createdAt:dateTime',
                     [
+                        'header' => 'دسترسی',
                         'class' => 'core\grid\ActionColumn',
-                        'template' => '{link}',
+                        'template' => '{link}&nbsp;&nbsp;&nbsp;{delete}',
                         'buttons' => [
                             'link' => function ($url, $model, $key) {
                                 return Html::a(

@@ -37,7 +37,7 @@ foreach ($modules as $moduleId => $moduleTitle) {
                 <?= Html::hiddenInput('assignPermissions', true) ?>
                 <?= Collapse::widget(['items' => $accordion]) ?>
                 <?= Html::submitButton('<i class="fa fa-save"></i> ذخیره', [
-                    'class' => 'btn btn-lg btn-success'
+                    'class' => 'btn btn-xs btn-success'
                 ]) ?>
                 <?= Button::widget(
                     [
@@ -45,7 +45,8 @@ foreach ($modules as $moduleId => $moduleTitle) {
                         'options' => ['class' => 'btn-lg'],
                         'type' => 'warning',
                         'icon' => 'undo',
-                        'url' => ['index']
+                        'url' => ['index'],
+                        'useDefaultCssClass' => false
                     ]
                 ) ?>
             <?= Html::endForm() ?>
