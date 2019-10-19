@@ -43,4 +43,21 @@ class NotifController extends Controller
         $notification->save();
         return $this->redirect(@unserialize($notification->route));
     }
+
+    public function actionDelete($id)
+    {
+        $model = Notification::findOne($id);
+        if (!$model->delete()) {
+            foreach ($model->getErrors('id') as $error) {
+                Yii::$app->session->addFlash('danger', $error);
+            }
+            return $this->redirect(['index']);
+        } else {
+            Yii::$app->session->addFlash(
+                'success',
+                'داده مورد نظر با موفقیت از سیستم حذف شد.'
+            );
+        }
+        return $this->redirect(['index']);
+    }
 }
