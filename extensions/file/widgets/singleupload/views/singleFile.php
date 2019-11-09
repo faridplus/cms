@@ -28,10 +28,18 @@ $hasError = $fileObject->hasErrors() ? 'has-error' : '';
                 <li>
                     <?php echo Html::a(
                         '<i class="fa fa-download text-success"></i>',
-                        $file->url
+                        $file->url,
+                        [
+                            'title' => 'دانلود',
+                        ]
                     ) ?>
-                    <span class="filename"><?php echo $file->originalName ?></span>
+                    <span class="filename">
+                        <?php
+                            $fileNamelabel = $file->originalName;
+                            echo ((mb_strlen($fileNamelabel) > 15 ) ? mb_substr($fileNamelabel, 0, 15) . '...' : $fileNamelabel);
+                        ?></span>
                     <i
+                        title = "حذف"
                         class="fa fa-trash fa-lg text-danger file-delete"
                         data-id="<?php echo $file->id ?>"
                     ></i>
