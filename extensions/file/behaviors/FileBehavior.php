@@ -16,6 +16,7 @@ class FileBehavior extends Behavior
 
     public $groups = [];
     private $fileErrors = [];
+    public $customModelClassName = null;
 
     public function events()
     {
@@ -117,7 +118,8 @@ class FileBehavior extends Behavior
         if (null == $group) {
             throw new InvalidParamException('missing one parameter for FileBehavior method `getFile($group)`');
         }
-        return File::getByModelAndGroup($this->owner, $group);
+
+        return File::getByModelAndGroup($this->owner, $group, $this->customModelClassName);
     }
 
     public function getFile($group = null)

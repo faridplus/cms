@@ -51,3 +51,15 @@ img.image-preview{
   top: 0;
   right: 0;
 }
+.uploaded-files ul.list-unstyled li span.filename{
+  font-size: 0.9em;
+}
+
+.uploaded-files ul.list-unstyled li{
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: none outset #FFFFFF;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+}
