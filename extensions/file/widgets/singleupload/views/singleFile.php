@@ -36,7 +36,7 @@ $hasError = $fileObject->hasErrors() ? 'has-error' : '';
                     <span class="filename">
                         <?php
                             $fileNamelabel = $file->originalName;
-                            echo ((mb_strlen($fileNamelabel) > 15 ) ? mb_substr($fileNamelabel, 0, 15) . '...' : $fileNamelabel);
+                            echo ((mb_strlen($fileNamelabel) > 19 ) ? mb_substr($fileNamelabel, 0, 19) . '...' : $fileNamelabel);
                         ?></span>
                     <i
                         title = "حذف"

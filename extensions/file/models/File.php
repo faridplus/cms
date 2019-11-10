@@ -99,14 +99,15 @@ class File extends \yii\db\ActiveRecord
             . '/';
     }
 
-    public static function getByModelAndGroup($model, $group)
+    public static function getByModelAndGroup($model, $group, $customModelClassName = null)
     {
+        $myModelClassName = (isset($customModelClassName) ? $customModelClassName : self::getModelClassNameSet($model));
         if ($model->isNewRecord) {
             return [];
         }
         return self::find()
             ->andFilterWhere(['modelId' => $model->id])
-            ->andFilterWhere(['in', 'modelClassName', self::getModelClassNameSet($model)])
+            ->andFilterWhere(['in', 'modelClassName', $myModelClassName])
             ->andFilterWhere(['like', 'group', $group])
             ->all();
     }
