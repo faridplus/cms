@@ -33,7 +33,7 @@ $hasError = $fileObject->hasErrors() ? 'has-error' : '';
                             'title' => 'دانلود',
                         ]
                     ) ?>
-                    <span class="filename">
+                    <span class="filename" title="<?= $file->originalName ?>">
                         <?php
                             $fileNamelabel = $file->originalName;
                             echo ((mb_strlen($fileNamelabel) > 19 ) ? mb_substr($fileNamelabel, 0, 19) . '...' : $fileNamelabel);
