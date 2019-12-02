@@ -21,7 +21,7 @@ class User extends BaseUser
                 'message' => 'لطفا شماره را به طور صحیح وارد کنید.'
 
             ],
-            [['email', 'name', 'surname', 'identityCode'], 'string', 'max' => 255],
+            [['email', 'name', 'surname', 'identityCode', 'post'], 'string', 'max' => 255],
             [['email', 'password'], 'required'],
             ['password', 'string', 'min' => 6],
             ['password', 'match',
@@ -51,6 +51,7 @@ class User extends BaseUser
             'title' => 'نام',
             'surname' => 'نام خانوادگی',
             'identityCode' => 'ایمیل',
+            'post' => 'سمت',
             'status' => 'وضعیت',
             'type' => 'نوع کاربر',
             'password' => 'کلمه عبور',

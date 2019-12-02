@@ -43,6 +43,18 @@ class User extends ActiveRecord
         return false;
     }
 
+    public function afterSave($insert, $changedAttributes)
+    {
+        if($insert){
+            $expert = new Expert();
+            $expert->userId = $this->getPrimaryKey();
+            $expert->departmentId = 0; // a dummy value which stands for PROCESS
+            $expert->save();
+        }
+
+        parent::afterSave($insert, $changedAttributes);
+    }
+
     public function getFullName()
     {
         return "$this->name $this->surname";

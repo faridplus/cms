@@ -33,6 +33,13 @@ $backLink = $model->isNewRecord ? ['index'] : ['view', 'id' => $model->id];
         </div>
         <div class="row">
             <div class="col-md-6">
+                <?= $form->field($model, 'post')->textInput(
+                    ['class' => 'form-control input-large']
+                ) ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <?= $form->field($model, 'email')->textInput(
                     ['class' => 'form-control input-large', 'style' => 'direction:ltr']
                 ) ?>
