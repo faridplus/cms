@@ -34,6 +34,7 @@ class NotificationSearch extends Notification
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'category', $this->category])
+            ->andFilterWhere(['like', 'read', 0]) // Note: my default value
             ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
