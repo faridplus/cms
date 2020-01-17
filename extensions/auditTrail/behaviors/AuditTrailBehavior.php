@@ -15,7 +15,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
     const IS_FIELD_RELATION_YES = 1;
     const IS_FIELD_RELATION_NO = 2;
 
-    const tableName = 'audit_trail';
+    const TABLE_NAME = 'audit_trail';
 
     public $relations; // relation can be objects (instances of ActiveQueryInterface) or simple strings
 
@@ -86,7 +86,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
 
         if (!empty($rows)) {
             Yii::$app->db->createCommand()->batchInsert(
-                self::tableName,
+                self::TABLE_NAME,
                 ['ownerId', 'fieldName', 'fieldNewValue', 'fieldOldValue' , 'isUpdated', 'isRelation', 'ownerClassName', 'updatedAt', 'updatedBy'],
                 $rows
             )->execute();
@@ -125,7 +125,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
             if($isAfterUpdate){
                 // fill fieldNewValue column
                 Yii::$app->db->createCommand()->update(
-                    self::tableName,
+                    self::TABLE_NAME,
                     [
                         'fieldNewValue' => $row['fieldNewValue'],
                         'updatedAt' => $row['updatedAt']
@@ -142,7 +142,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
                 // fill isUpdated column in 2 steps
                 // first step for updated values:
                 Yii::$app->db->createCommand()->update(
-                    self::tableName,
+                    self::TABLE_NAME,
                     [
                         'isUpdated' => self::IS_FIELD_UPDATED_YES
                     ],
@@ -163,7 +163,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
                 )->execute();
                 // second step for not updated values:
                 Yii::$app->db->createCommand()->update(
-                    self::tableName,
+                    self::TABLE_NAME,
                     [
                         'isUpdated' => self::IS_FIELD_UPDATED_NO
                     ],
@@ -189,7 +189,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
 
         if (!empty($rows) && !$isAfterUpdate) {
             Yii::$app->db->createCommand()->batchInsert(
-                self::tableName,
+                self::TABLE_NAME,
                 ['fieldOldValue', 'fieldNewValue', 'isUpdated', 'ownerId', 'fieldName','isRelation', 'ownerClassName',  'updatedAt', 'updatedBy'],
                 $rows
             )->execute();
@@ -207,7 +207,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
     {
         $ownerId = $this->owner->id;
         $ownerClassName = (new \ReflectionClass($this->owner))->getName();
-        $tableName = self::tableName;
+        $tableName = self::TABLE_NAME;
 
         $includeConditionParams = [];
         $excludeConditionParams = [];
@@ -278,5 +278,36 @@ class AuditTrailBehavior extends \yii\base\Behavior
         $result = ArrayHelper::map($logsRaw, 'fieldName', 'fieldOldValue', 'updatedAt');
 
         return $result;
+    }
+
+    public function getLastStatusBeforeLock(){
+        $tableName = self::TABLE_NAME;
+        $ownerId = $this->owner->id;
+        $ownerClassName = (new \ReflectionClass($this->owner))->getName();
+
+        $statusBeforeLock = Yii::$app->db->createCommand("
+            SELECT
+                fieldOldValue
+            FROM
+                {$tableName}
+            WHERE
+                ownerId = :ownerId
+                AND ownerClassName = :ownerClassName
+                AND isUpdated = :isUpdated
+                AND fieldName = :fieldName
+                AND fieldNewValue = :fieldNewValue
+            ORDER BY
+                updatedAt DESC
+            ",
+            [
+                ':ownerId' => $ownerId,
+                ':ownerClassName' => $ownerClassName,
+                ':isUpdated' => self::IS_FIELD_UPDATED_YES,
+                ':fieldName' => 'status',
+                ':fieldNewValue' => $ownerClassName::STATUS_LOCKED
+            ]
+        )->queryScalar();
+
+        return $statusBeforeLock;
     }
 }
