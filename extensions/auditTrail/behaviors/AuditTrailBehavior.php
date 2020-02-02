@@ -12,6 +12,9 @@ class AuditTrailBehavior extends \yii\base\Behavior
     const IS_FIELD_UPDATED_YES = 1;
     const IS_FIELD_UPDATED_NO = 2;
 
+    const IS_FIELD_DELETED_YES = 1;
+    const IS_FIELD_DELETED_NO = 0; // not used here, just as a warning note. The default value is set to 0 in database layer.
+
     const IS_FIELD_RELATION_YES = 1;
     const IS_FIELD_RELATION_NO = 2;
 
@@ -37,7 +40,8 @@ class AuditTrailBehavior extends \yii\base\Behavior
     {
         return [
             ActiveRecord::EVENT_BEFORE_UPDATE => 'logRelations', // $isAfterUpdate = false
-            ActiveRecord::EVENT_AFTER_UPDATE => 'logAttributesAndRelations' // $isAfterUpdate = true
+            ActiveRecord::EVENT_AFTER_UPDATE => 'logAttributesAndRelations', // $isAfterUpdate = true
+            ActiveRecord::EVENT_AFTER_DELETE => 'logDelete'
         ];
     }
 
@@ -309,5 +313,38 @@ class AuditTrailBehavior extends \yii\base\Behavior
         )->queryScalar();
 
         return $statusBeforeLock;
+    }
+
+    public function logDelete($event)
+    {
+        $ownerId = $this->owner->id;
+        $ownerClassName = (new \ReflectionClass($this->owner))->getName();
+        $this->updateTime = time();
+
+        $rows= [];
+        foreach ($this->owner->getAttributes() as $name => $value) {
+            $row['ownerId'] = $ownerId;
+            $row['fieldName'] =  $name;
+            $row['fieldNewValue'] = null;
+            $row['fieldOldValue'] =  $value;
+            $row['isUpdated'] = null;
+            $row['isRelation'] = null;
+            $row['ownerClassName'] = $ownerClassName;
+            $row['updatedAt'] = null;
+            $row['updatedBy'] = null;
+            $row['isDeleted'] = self::IS_FIELD_DELETED_YES;
+            $row['deletedAt'] = $this->updateTime; // not a typo. updateTime is actually deleteTime here.
+            $row['deletedBy'] = Yii::$app->get('user')->id;
+
+            $rows[]=$row;
+        }
+
+        if (!empty($rows)) {
+            Yii::$app->db->createCommand()->batchInsert(
+                self::TABLE_NAME,
+                ['ownerId', 'fieldName', 'fieldNewValue', 'fieldOldValue' , 'isUpdated', 'isRelation', 'ownerClassName', 'updatedAt', 'updatedBy', 'isDeleted', 'deletedAt', 'deletedBy'],
+                $rows
+            )->execute();
+        }
     }
 }
