@@ -7,10 +7,12 @@ use modules\user\common\models\User as BaseUser;
 
 class User extends BaseUser
 {
+    public $personnelId;
+
     public function rules()
     {
         return [
-            [['email', 'name', 'surname', 'identityCode'], 'trim'],
+            [['email', 'name', 'surname', 'identityCode', 'personnelId'], 'trim'],
             ['email', 'email'],
             [['status', 'type'], 'integer'],
             ['phone', 'string', 'max' => 11, 'min' => 4],
@@ -21,15 +23,15 @@ class User extends BaseUser
                 'message' => 'لطفا شماره را به طور صحیح وارد کنید.'
 
             ],
-            [['email', 'name', 'surname', 'identityCode', 'post'], 'string', 'max' => 255],
-            [['email', 'password'], 'required'],
+            [['email', 'name', 'surname', 'identityCode', 'post', 'personnelId'], 'string', 'max' => 255],
+            [['email', 'password', 'personnelId'], 'required'],
             ['password', 'string', 'min' => 6],
             ['password', 'match',
                 'pattern' => '((?=.*\d)(?=.*[a-zA-Z]).{6,20})',
                 'message' => 'کلمه عبور باید شامل حروف و حداقل یک عدد یا سمبل دیگر باشد. '.
                              'طول کلمه عبور باید بین ۶ و ۲۰ کاراکتر باشد.',
             ],
-            ['email', 'unique', 'message' => 'این آدرس ایمیل قبلا استفاده شده است.'],
+            ['email', 'unique', 'message' => 'این آدرس ایمیل قبلا استفاده شده است.']
         ];
     }
 
@@ -37,7 +39,7 @@ class User extends BaseUser
     {
         $scenarios = parent::scenarios();
         $scenarios['changePassword'] = ['password'];
-        $scenarios['update'] = ['email', 'status', 'type', 'phone', 'name', 'surname'];
+        $scenarios['update'] = ['email', 'status', 'type', 'phone', 'name', 'surname', 'personnelId'];
         return $scenarios;
     }
 
@@ -58,7 +60,8 @@ class User extends BaseUser
             'createdAt' => 'تاریخ ثبت‌نام',
             'updatedAt' => 'تاریخ آخرین بروزرسانی',
             'lastLoggedInAt' => 'تاریخ آخرین ورود',
-            'failedAttempts' => 'دفعات تلاش ناموفق برای ورود'
+            'failedAttempts' => 'دفعات تلاش ناموفق برای ورود',
+            'personnelId' => 'شماره پرسنلی'
         ];
     }
 

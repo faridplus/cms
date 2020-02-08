@@ -48,7 +48,12 @@ class User extends ActiveRecord
         if($insert){
             $expert = new Expert();
             $expert->userId = $this->getPrimaryKey();
+            $expert->personnelId = $this->personnelId;
             $expert->departmentId = 0; // a dummy value which stands for PROCESS
+            $expert->save();
+        }elseif($this->scenario == 'update'){
+            $expert = $this->expert;
+            $expert->personnelId = $this->personnelId;
             $expert->save();
         }
 
