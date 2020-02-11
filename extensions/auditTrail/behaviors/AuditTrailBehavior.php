@@ -226,7 +226,9 @@ class AuditTrailBehavior extends \yii\base\Behavior
 
         $onlyChangedFieldsCondition = '';
         if($onlyChangedFields){
-            $onlyChangedFieldsCondition = ' AND isUpdated = :isUpdated';
+            $onlyChangedFieldsCondition = ' AND isUpdated = :isUpdated' .
+            $includeConditionString .
+            $excludeConditionString;
         }
 
         $logs = Yii::$app->db->createCommand("
@@ -238,8 +240,6 @@ class AuditTrailBehavior extends \yii\base\Behavior
                 ownerClassName = :ownerClassName
                 AND ownerId = :ownerId
                 {$onlyChangedFieldsCondition}
-                {$includeConditionString}
-                {$excludeConditionString}
                 AND updatedAt IN (
                 SELECT
                     updatedAt
