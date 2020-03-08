@@ -108,7 +108,7 @@ class File extends \yii\db\ActiveRecord
         return self::find()
             ->andFilterWhere(['modelId' => $model->id])
             ->andFilterWhere(['in', 'modelClassName', $myModelClassName])
-            ->andFilterWhere(['like', 'group', $group])
+            ->andFilterWhere(['=', 'group', $group])
             ->all();
     }
 
