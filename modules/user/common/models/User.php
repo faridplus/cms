@@ -11,6 +11,7 @@ class User extends ActiveRecord
     const STATUS_ACTIVE = 1;
     const STATUS_NOT_ACTIVE = 2;
     const STATUS_BANNED = 3;
+    const STATUS_SOFT_DELETED = 4;
     const TYPE_REGULAR = 1;
     const TYPE_OPERATOR = 2;
     const TYPE_EDITOR = 3;
