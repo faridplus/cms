@@ -39,7 +39,10 @@ $backLink = $model->isNewRecord ? ['index'] : ['view', 'id' => $model->id];
             </div>
             <div class="col-md-6">
                 <?= $form->field($model, 'personnelId')->textInput(
-                    ['class' => 'form-control input-large']
+                    [
+                        'class' => 'form-control input-large',
+                        'value' => $model->expert->personnelId
+                    ]
                 ) ?>
             </div>
         </div>

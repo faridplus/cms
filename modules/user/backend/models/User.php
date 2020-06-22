@@ -85,7 +85,8 @@ class User extends BaseUser
         return [
             self::STATUS_ACTIVE => 'فعال',
             self::STATUS_BANNED => 'مسدود',
-            self::STATUS_NOT_ACTIVE => 'غیر فعال'
+            self::STATUS_NOT_ACTIVE => 'غیر فعال',
+            self::STATUS_SOFT_DELETED => 'حذف',
         ];
     }
 

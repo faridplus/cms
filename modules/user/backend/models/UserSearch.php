@@ -40,13 +40,28 @@ class UserSearch extends User
             $query->where('0=1');
             return $dataProvider;
         }
-        $query->andFilterWhere(
-            [
-                'user.id' => $this->id,
-                'type' => $this->type,
-                'user.status' => $this->status,
-            ]
-        );
+
+        if(isset($this->status) && !empty($this->status)){
+            $query->andFilterWhere(
+                [
+                    'user.id' => $this->id,
+                    'type' => $this->type,
+                    'user.status' => $this->status,
+                ]
+            );
+        }else{
+            // show all users except for soft deleted ones
+            $query->andFilterWhere(
+                [
+                    'user.id' => $this->id,
+                    'type' => $this->type,
+                ]
+            );
+            $query->andFilterWhere(
+                ['in', 'user.status', [self::STATUS_ACTIVE, self::STATUS_BANNED, self::STATUS_NOT_ACTIVE]]
+            );
+        }
+
         $query->andFilterWhere(['like', 'email', $this->email]);
         $query->andFilterWhere(['like', 'phone', $this->phone]);
         $query->andFilterWhere(['like', 'post', $this->post]);
