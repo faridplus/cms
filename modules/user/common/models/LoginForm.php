@@ -44,6 +44,8 @@ class LoginForm extends Model
                 $this->addError($attribute, 'حساب کاربری شما مسدود شده است');
             } elseif ($user->status == UserIdentity::STATUS_NOT_ACTIVE) {
                 $this->addError($attribute, 'حساب کاربری شما فعال نیست. با مدیر سیستم تماس بگیرید.');
+            } elseif ($user->status == UserIdentity::STATUS_SOFT_DELETED) {
+                $this->addError($attribute, 'حساب کاربری شما حذف شده است.');
             }
         }
     }
