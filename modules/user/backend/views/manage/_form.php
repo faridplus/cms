@@ -5,8 +5,13 @@ use theme\widgets\Panel;
 use theme\widgets\Button;
 use modules\user\backend\models\User;
 use modules\user\common\widgets\ShowPassword;
+use nad\office\modules\expert\models\Expert;
 
 $backLink = $model->isNewRecord ? ['index'] : ['view', 'id' => $model->id];
+if(!$model->isNewRecord){
+    $expert = Expert::find()->where(['userId' => $model->id])->one();
+    $model->personnelId = $expert->personnelId;
+}
 ?>
 <div class="user-form">
     <?php $form = ActiveForm::begin([
@@ -40,8 +45,7 @@ $backLink = $model->isNewRecord ? ['index'] : ['view', 'id' => $model->id];
             <div class="col-md-6">
                 <?= $form->field($model, 'personnelId')->textInput(
                     [
-                        'class' => 'form-control input-large',
-                        'value' => $model->expert->personnelId
+                        'class' => 'form-control input-large'
                     ]
                 ) ?>
             </div>

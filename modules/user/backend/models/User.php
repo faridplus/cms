@@ -3,6 +3,7 @@
 namespace modules\user\backend\models;
 
 use Yii;
+use nad\office\modules\expert\models\Expert;
 use modules\user\common\models\User as BaseUser;
 
 class User extends BaseUser

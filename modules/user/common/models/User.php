@@ -53,7 +53,7 @@ class User extends ActiveRecord
             $expert->departmentId = 0; // a dummy value which stands for PROCESS
             $expert->save();
         }elseif($this->scenario == 'update'){
-            $expert = $this->expert;
+            $expert = Expert::find()->where(['userId' => $this->id])->one();
             $expert->personnelId = $this->personnelId;
             $expert->save();
         }
