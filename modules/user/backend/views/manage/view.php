@@ -3,6 +3,7 @@ use theme\widgets\Panel;
 use yii\widgets\DetailView;
 use theme\widgets\ActionButtons;
 use modules\user\backend\models\User;
+use nad\office\modules\expert\models\Expert;
 
 $this->title = $model->email;
 $this->params['breadcrumbs'][] = ['label' => 'کاربران', 'url' => ['index']];
@@ -33,7 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'name',
                 'surname',
                 'post',
-                'expert.personnelId',
+                [
+                    'attribute' => 'personnelId',
+                    'value' => function($model){
+                        return Expert::find()->where(['userId' => $model->id])->one()->personnelId;
+                    },
+                ],
                 'email',
                 'phone',
                 [

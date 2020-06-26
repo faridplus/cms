@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use theme\widgets\Panel;
 use modules\user\backend\models\User;
 use theme\widgets\ActionButtons;
+use nad\office\modules\expert\models\Expert;
 
 $this->title = 'مدیریت کاربران';
 $this->params['breadcrumbs'][] = $this->title;
@@ -27,7 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'columns' => [
-                ['class' => 'core\grid\IDColumn'],
+                [
+                    'class' => 'yii\grid\SerialColumn',
+                    'options' => [
+                        'width' => '20px'
+                    ]
+                ],
                 [
                     'attribute' => 'title',
                     'value' => function ($model) {
@@ -35,7 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                 ],
                 'post',
-                'expert.personnelId',
+                [
+                    'attribute' => 'personnelId',
+                    'value' => function($model){
+                        return Expert::find()->where(['userId' => $model->id])->one()->personnelId;
+                    },
+                ],
                 'email',
                 'phone',
                 [
