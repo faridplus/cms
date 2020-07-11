@@ -1,6 +1,6 @@
 <?php
 
-namespace extensions\ExcelReader;
+namespace extensions\excelReader;
 
 use moonland\phpexcel\Excel;
 
