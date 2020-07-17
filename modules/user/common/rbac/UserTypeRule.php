@@ -23,6 +23,18 @@ class UserTypeRule extends \yii\rbac\Rule
                     return $userType == User::TYPE_OPERATOR
                         || $userType == User::TYPE_EDITOR
                         || $userType == User::TYPE_SUPERUSER;
+                case 'expert':
+                    return $userType == User::TYPE_EXPERT
+                        || $userType == User::TYPE_DEPARTMENT_MANAGER_PROCESS
+                        || $userType == User::TYPE_DEPARTMENT_MANAGER_ENGINEERING
+                        || $userType == User::TYPE_OPERATOR
+                        || $userType == User::TYPE_SUPERUSER;
+                case 'process_department_manager':
+                    return $userType == User::TYPE_DEPARTMENT_MANAGER_PROCESS
+                        || $userType == User::TYPE_SUPERUSER;
+                case 'engineering_department_manager':
+                    return $userType == User::TYPE_DEPARTMENT_MANAGER_ENGINEERING
+                        || $userType == User::TYPE_SUPERUSER;
                 default:
                     break;
             }

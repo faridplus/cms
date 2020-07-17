@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'lastLoggedInAt:datetime',
                 [
                     'attribute' => 'type',
-                    'value' => $model->gettypeLabel(),
+                    'value' => $model->getTypeLabel(),
                 ],
             ],
         ]) ?>

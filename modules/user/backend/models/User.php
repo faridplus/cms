@@ -81,6 +81,35 @@ class User extends BaseUser
         parent::afterDelete();
     }
 
+    // role assignment to user
+    public function afterSave($insert, $changedAttributes)
+    {
+        $authManager = Yii::$app->authManager;
+        $permission = '';
+        switch ($this->type) {
+            case self::TYPE_EXPERT:
+                $permission = $authManager->getRole('expert');
+                break;
+            case self::TYPE_SUPERUSER:
+                $permission = $authManager->getRole('superuser');
+                break;
+            case self::TYPE_DEPARTMENT_MANAGER_PROCESS:
+                $permission = $authManager->getRole('process_department_manager');
+                break;
+            case self::TYPE_DEPARTMENT_MANAGER_ENGINEERING:
+                $permission = $authManager->getRole('engineering_department_manager');
+                break;
+            default:
+                throw new \Exception('Unknown user type! Failed to assign permission to this user.');
+                break;
+        }
+
+
+        $authManager->assign($permission, $this->id);
+
+        parent::afterSave($insert, $changedAttributes);
+    }
+
     public static function statusLabels()
     {
         return [
@@ -100,18 +129,23 @@ class User extends BaseUser
     public static function typeLabels()
     {
         return [
-            self::TYPE_REGULAR => 'کاربر عادی',
-            self::TYPE_OPERATOR => 'اپراتور',
-            self::TYPE_EDITOR => 'سردبیر',
-            self::TYPE_SUPERUSER => 'مدیر اصلی',
+            // self::TYPE_REGULAR => 'کاربر عادی',
+            self::TYPE_EXPERT => 'کاربر عادی',
+            // self::TYPE_OPERATOR => 'اپراتور',
+            // self::TYPE_EDITOR => 'سردبیر',
+            self::TYPE_SUPERUSER => 'مدیر', // role = superuser
+            self::TYPE_DEPARTMENT_MANAGER_PROCESS => 'مدیر قسمت فرایند',
+            self::TYPE_DEPARTMENT_MANAGER_ENGINEERING => 'مدیر قسمت فنی'
         ];
     }
 
     public static function adminTypeLabels()
     {
         return [
-            self::TYPE_OPERATOR => 'اپراتور',
-            self::TYPE_SUPERUSER => 'مدیر اصلی'
+            self::TYPE_EXPERT => 'کاربر عادی',
+            self::TYPE_SUPERUSER => 'مدیر',
+            self::TYPE_DEPARTMENT_MANAGER_PROCESS => 'مدیر قسمت فرایند',
+            self::TYPE_DEPARTMENT_MANAGER_ENGINEERING => 'مدیر قسمت فنی'
         ];
     }
 
