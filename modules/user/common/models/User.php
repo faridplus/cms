@@ -12,10 +12,14 @@ class User extends ActiveRecord
     const STATUS_NOT_ACTIVE = 2;
     const STATUS_BANNED = 3;
     const STATUS_SOFT_DELETED = 4;
+
     const TYPE_REGULAR = 1;
     const TYPE_OPERATOR = 2;
     const TYPE_EDITOR = 3;
     const TYPE_SUPERUSER = 4;
+    const TYPE_EXPERT = 5;
+    const TYPE_DEPARTMENT_MANAGER_PROCESS = 6;
+    const TYPE_DEPARTMENT_MANAGER_ENGINEERING = 7;
 
     public $password;
 
