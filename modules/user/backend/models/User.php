@@ -134,8 +134,8 @@ class User extends BaseUser
             // self::TYPE_OPERATOR => 'اپراتور',
             // self::TYPE_EDITOR => 'سردبیر',
             self::TYPE_SUPERUSER => 'مدیر', // role = superuser
-            self::TYPE_DEPARTMENT_MANAGER_PROCESS => 'مدیر قسمت فرایند',
-            self::TYPE_DEPARTMENT_MANAGER_ENGINEERING => 'مدیر قسمت فنی'
+            self::TYPE_DEPARTMENT_MANAGER_PROCESS => 'مسئول قسمت فرایند',
+            self::TYPE_DEPARTMENT_MANAGER_ENGINEERING => 'مسئول قسمت فنی'
         ];
     }
 
@@ -144,8 +144,8 @@ class User extends BaseUser
         return [
             self::TYPE_EXPERT => 'کاربر عادی',
             self::TYPE_SUPERUSER => 'مدیر',
-            self::TYPE_DEPARTMENT_MANAGER_PROCESS => 'مدیر قسمت فرایند',
-            self::TYPE_DEPARTMENT_MANAGER_ENGINEERING => 'مدیر قسمت فنی'
+            self::TYPE_DEPARTMENT_MANAGER_PROCESS => 'مسئول قسمت فرایند',
+            self::TYPE_DEPARTMENT_MANAGER_ENGINEERING => 'مسئول قسمت فنی'
         ];
     }
 
