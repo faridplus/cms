@@ -40,7 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Expert::find()->where(['userId' => $model->id])->one()->personnelId;
                     },
                 ],
-                'email',
+                [
+                    'attribute' => 'email',
+                    'contentOptions' => ['style' => 'direction:ltr; text-align:right']
+                ],
                 'phone',
                 [
                     'attribute' => 'status',

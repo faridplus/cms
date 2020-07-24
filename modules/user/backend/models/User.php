@@ -48,7 +48,7 @@ class User extends BaseUser
     {
         return [
             'id' => 'شناسه',
-            'email' => 'ایمیل',
+            'email' => 'نام کاربری (ایمیل)',
             'phone' => 'شماره تماس',
             'name' => 'نام',
             'title' => 'نام',
