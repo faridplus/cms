@@ -84,28 +84,29 @@ class User extends BaseUser
     // role assignment to user
     public function afterSave($insert, $changedAttributes)
     {
-        $authManager = Yii::$app->authManager;
-        $permission = '';
-        switch ($this->type) {
-            case self::TYPE_EXPERT:
-                $permission = $authManager->getRole('expert');
-                break;
-            case self::TYPE_SUPERUSER:
-                $permission = $authManager->getRole('superuser');
-                break;
-            case self::TYPE_DEPARTMENT_MANAGER_PROCESS:
-                $permission = $authManager->getRole('process_department_manager');
-                break;
-            case self::TYPE_DEPARTMENT_MANAGER_ENGINEERING:
-                $permission = $authManager->getRole('engineering_department_manager');
-                break;
-            default:
-                throw new \Exception('Unknown user type! Failed to assign permission to this user.');
-                break;
+        if ($insert) {
+            $authManager = Yii::$app->authManager;
+            $permission = '';
+            switch ($this->type) {
+                case self::TYPE_EXPERT:
+                    $permission = $authManager->getRole('expert');
+                    break;
+                case self::TYPE_SUPERUSER:
+                    $permission = $authManager->getRole('superuser');
+                    break;
+                case self::TYPE_DEPARTMENT_MANAGER_PROCESS:
+                    $permission = $authManager->getRole('process_department_manager');
+                    break;
+                case self::TYPE_DEPARTMENT_MANAGER_ENGINEERING:
+                    $permission = $authManager->getRole('engineering_department_manager');
+                    break;
+                default:
+                    throw new \Exception('Unknown user type! Failed to assign permission to this user.');
+                    break;
+            }
+
+            $authManager->assign($permission, $this->id);
         }
-
-
-        $authManager->assign($permission, $this->id);
 
         parent::afterSave($insert, $changedAttributes);
     }
