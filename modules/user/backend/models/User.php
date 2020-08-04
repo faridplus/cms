@@ -58,6 +58,7 @@ class User extends BaseUser
             'status' => 'وضعیت',
             'type' => 'نوع کاربر',
             'password' => 'کلمه عبور',
+            'originalPassword' => 'کلمه عبور',
             'createdAt' => 'تاریخ ثبت‌نام',
             'updatedAt' => 'تاریخ آخرین بروزرسانی',
             'lastLoggedInAt' => 'تاریخ آخرین ورود',
