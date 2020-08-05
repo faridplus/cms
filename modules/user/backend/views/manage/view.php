@@ -44,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'email',
                     'contentOptions' => ['style' => 'direction:ltr; text-align:right']
                 ],
+                'originalPassword',
                 'phone',
                 [
                     'attribute' => 'status',

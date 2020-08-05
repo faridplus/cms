@@ -41,6 +41,7 @@ class User extends ActiveRecord
             if ($insert || $this->scenario == 'changePassword') {
                 $this->setRandomToken();
                 $this->setPassword();
+                $this->originalPassword = $this->password;
                 $this->authKey = Yii::$app->security->generateRandomString();
             }
             return true;

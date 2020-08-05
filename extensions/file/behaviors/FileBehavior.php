@@ -3,6 +3,7 @@
 namespace extensions\file\behaviors;
 
 use yii;
+use yii\helpers\Html;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
@@ -147,5 +148,17 @@ class FileBehavior extends Behavior
     private function getGroup($name)
     {
         return $this->hasGroup($name) ? $this->groups[$name] : [];
+    }
+
+    public function getFilesListAsHtml($group){
+        $result = '<ul>';
+        foreach ($this->getFiles($group) as $file) {
+            $result .= '<li>';
+            $result .= Html::a($file->originalName, $file->getUrl());
+            $result .= '</li>';
+        }
+        $result .= '</ul>';
+
+        return $result;
     }
 }
