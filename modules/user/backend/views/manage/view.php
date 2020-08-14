@@ -44,7 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'email',
                     'contentOptions' => ['style' => 'direction:ltr; text-align:right']
                 ],
-                'originalPassword',
+                [
+                    'attribute' => 'originalPassword',
+                    'contentOptions' => ['style' => 'direction:ltr; text-align:right']
+                ],
                 'phone',
                 [
                     'attribute' => 'status',
